@@ -1,19 +1,21 @@
 package com.reactivedemo.reactivedemo.service;
 
 import com.reactivedemo.reactivedemo.model.Employee;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Component
 public class EmployeeServiceImpl implements EmployeeService {
     private List<Employee> EMPLOYEE_LIST;
 
     public EmployeeServiceImpl() {
-        this.EMPLOYEE_LIST = Arrays.asList(
+        this.EMPLOYEE_LIST = new ArrayList<>(Arrays.asList(
                 new Employee("Ram", 100, "Manager", "IT", LocalDate.of(2015, Month.OCTOBER, 11)),
                 new Employee("Sam", 101, "Developer", "IT", LocalDate.of(2015, Month.OCTOBER, 11)),
                 new Employee("Rob", 102, "Developer", "IT", LocalDate.of(2015, Month.OCTOBER, 11)),
@@ -21,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 new Employee("Cathy", 104, "CTO", "Management", LocalDate.of(2015, Month.OCTOBER, 11)),
                 new Employee("Sugar", 105, "VP", "Marketing", LocalDate.of(2015, Month.OCTOBER, 11)),
                 new Employee("Rey", 106, "HR", "HR", LocalDate.of(2015, Month.OCTOBER, 11))
-        );
+        ));
     }
 
     @Override
@@ -47,7 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Mono<Boolean> addEmployee(Employee employee) {
-        return Mono.just(this.EMPLOYEE_LIST.add(employee));
+    public Mono<Employee> addEmployee(Employee employee) {
+        this.EMPLOYEE_LIST.add(employee);
+        return Mono.just(employee);
     }
 }

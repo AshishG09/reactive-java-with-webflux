@@ -57,4 +57,6 @@ public class Employee {
         Department = department;
         DateOfJoining = dateOfJoining;
     }
+
+    public Employee() {}
 }
